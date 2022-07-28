@@ -1,0 +1,23 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "length_converter"
+version = "1.0"
+authors = [
+    { name = "bquan0", email = "bquan2@wisc.edu" },
+]
+description = "converts lengths from one unit to another"
+readme = README.md
+license = {file = "LICENSE"}
+requires-python = ">=3.7"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+
+[project.urls]
+"Homepage" = "https://github.com/CNERG/learn-maintenance"
+"Bug Tracker" = "https://github.com/CNERG/learn-maintenance/issues"
