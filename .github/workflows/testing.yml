@@ -8,3 +8,5 @@ jobs:
     steps: 
       - run: pip install pytest
       - run: pytest
+        env:
+            LD_LIBRARY_PATH: /usr/local/lib
