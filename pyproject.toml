@@ -9,7 +9,7 @@ authors = [
     { name = "bquan0", email = "bquan2@wisc.edu" },
 ]
 description = "converts lengths from one unit to another"
-readme = README.md
+readme = "README.md"
 license = {file = "LICENSE"}
 requires-python = ">=3.7"
 classifiers = [
@@ -21,3 +21,8 @@ classifiers = [
 [project.urls]
 "Homepage" = "https://github.com/CNERG/learn-maintenance"
 "Bug Tracker" = "https://github.com/CNERG/learn-maintenance/issues"
+
+[tool.pytest.ini_options]
+pythonpath = [
+  "."
+]

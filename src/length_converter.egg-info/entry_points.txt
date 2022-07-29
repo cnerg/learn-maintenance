@@ -1,0 +1,2 @@
+[console_scripts]
+prog = test_package.prog.cmd:main

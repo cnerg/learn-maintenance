@@ -10,7 +10,7 @@ def unitToInch(unit, amt):
     elif unit == "yd":
         return amt * 36
     elif unit == "mi":
-        return amt * 15840
+        return amt * 63360
     elif unit == "cm":
         return amt/2.54
     elif unit == "m":
@@ -26,7 +26,7 @@ def inchToUnit(unit, amt):
     elif unit == "yd":
         return amt/36
     elif unit == "mi":
-        return amt/15840
+        return amt/63360
     elif unit == "cm":
         return amt * 2.54
     elif unit == "m":
@@ -34,7 +34,6 @@ def inchToUnit(unit, amt):
     elif unit == "km":
         return amt * 2.54 / 100000
 
-# TODO add argparser here
 def main():
     parser = argparse.ArgumentParser(prog = "number guesser")
     parser.add_argument("input_amount", type = float, help = "input amount")
@@ -43,12 +42,16 @@ def main():
     parser.add_argument("-v", "--verbosity", help = "increase output verbosity", action = "count", default = 0)
     args = parser.parse_args()
 
+    # do the conversion
     output_amount = inchToUnit(args.output_unit, unitToInch(args.input_unit, args.input_amount))
+    
+    # print out more text if the verbosity is 1 or more
     if args.verbosity >= 1:
         print(str(args.input_amount) + args.input_unit + " is " + str(output_amount) + args.output_unit)
     else:
         print(str(output_amount) + args.output_unit)
 
+# run the main function if this file is directly run
 if __name__ == '__main__':
     main()
     

@@ -1,0 +1,9 @@
+# automatically runs pytest to test the length conversion program whenever code is pushed to github
+
+name: test-conversion-program
+on: push
+jobs:
+  run-test-code:
+    runs-on: ubuntu-latest
+    steps: 
+      - run: pytest
