@@ -15,4 +15,6 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
       - run: pip install pytest
-      - run: pytest
+      - run: pip install -U coverage
+      - run: coverage run -m --source=. pytest
+      - run: coverage report
