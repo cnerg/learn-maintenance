@@ -5,11 +5,6 @@ on: push
 jobs:
   run-test-code:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        python-version: ["3.7", "3.8", "3.9", "3.10"]
     steps: 
       - run: pip install pytest
-      - run: pytest
-        env:
-            LD_LIBRARY_PATH: /learn-maintenance
+      - run: python3 -m pytest
