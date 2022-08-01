@@ -5,6 +5,16 @@ on: push
 jobs:
   run-test-code:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.7", "3.8", "3.9", "3.10"]
     steps: 
+      - uses: actions/checkout@v3
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python-version }}
       - run: pip install pytest
-      - run: pytest
+      - run: pip install -U coverage
+      - run: coverage run -m --source=. pytest
+      - run: coverage report
