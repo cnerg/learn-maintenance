@@ -35,7 +35,7 @@ def inchToUnit(unit, amt):
         return amt * 2.54 / 100000
 
 def main():
-    parser = argparse.ArgumentParser(prog = "number guesser")
+    parser = argparse.ArgumentParser(prog = "length unit converter")
     parser.add_argument("input_amount", type = float, help = "input amount")
     parser.add_argument("input_unit", choices = ["in", "ft", "yd", "mi", "cm", "m", "km"], help = "unit of the input amount")
     parser.add_argument("output_unit", choices = ["in", "ft", "yd", "mi", "cm", "m", "km"], help = "unit you want to convert to")
