@@ -1,0 +1,13 @@
+LICENSE
+README.md
+pyproject.toml
+setup.py
+src/progPackage/__init__.py
+src/progPackage/command_line.py
+src/progPackage/prog.py
+src/prog_project.egg-info/PKG-INFO
+src/prog_project.egg-info/SOURCES.txt
+src/prog_project.egg-info/dependency_links.txt
+src/prog_project.egg-info/entry_points.txt
+src/prog_project.egg-info/requires.txt
+src/prog_project.egg-info/top_level.txt
