@@ -31,4 +31,10 @@ def test_inchToUnit():
     assert 3.8608 == round(prog.inchToUnit("m", 152), 4)
     assert 2452.174445 == round(prog.inchToUnit("km", 96542301), 6)
     assert 0.5504434 == round(prog.inchToUnit("km", 21671), 7)
+
+def test_crossProduct():
+    array = prog.crossProduct([2,-1,3,3,2,1])
+    assert (array[0] == -7) & (array[1] == 7) & (array[2] == 7) & (len(array) == 3)
+    array = prog.crossProduct([6,0,-3,0,6,0])
+    assert (array[0] == 18) & (array[1] == 0) & (array[2] == 36) & (len(array) == 3)  
     
