@@ -1,9 +1,11 @@
 from setuptools import setup
 
 setup(
-    entry_points = {
-        'console_scripts': ['prog = src.prog_package.prog:main',],
+    name = 'progPackage',
+    entry_points={
+        'console_scripts': [
+            'prog = progPackage:prog.main',
+        ],
     },
-    install_requires=['numpy',],
+    install_requires = ['numpy',],
 )
-    

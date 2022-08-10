@@ -1,4 +1,4 @@
-from src.prog_package import prog
+from src.progPackage import prog
 
 def test_unitToInch():
     assert 10 == prog.unitToInch("in", 10)
