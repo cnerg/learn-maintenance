@@ -1,6 +1,7 @@
 # learn-maintenance
 
 ### Project Status
+[![Coverage Status](https://coveralls.io/repos/github/bquan0/learn-maintenance/badge.svg?branch=badges)](https://coveralls.io/github/bquan0/learn-maintenance?branch=badges)
 ![GitHub issues](https://img.shields.io/github/issues/cnerg/learn-maintenance)
 ![GitHub pull requests](https://img.shields.io/github/issues-pr/cnerg/learn-maintenance)
 
