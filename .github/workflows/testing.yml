@@ -15,7 +15,7 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
       - run: pip install numpy
-      - run: pip install pytest
-      - run: pip install -U coverage
+      - run: pip install -U pytest coverage coveralls PyYAML
       - run: coverage run -m --source=. pytest
+      - run: coveralls
       - run: coverage report
