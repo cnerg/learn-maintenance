@@ -38,6 +38,6 @@ jobs:
         with:
           context: .
           push: true
-          tags: ${{ steps.meta.outputs.tags }}
+          tags: ghcr.io/bquan0/project-name:latest
           labels: ${{ steps.meta.outputs.labels }} 
     
