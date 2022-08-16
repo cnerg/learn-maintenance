@@ -1,8 +1,9 @@
 name: build-docker-image
 
-on: push
-  paths:
-    - 'Dockerfile'
+on: 
+  push:
+    paths:
+      - 'Dockerfile'
 
 env: 
   REGISTRY: ghcr.io
