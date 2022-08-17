@@ -8,7 +8,7 @@
 A repository for learning software maintenance and testing.
 
 ## Entry points
-To install the package on your computer, run this in the learn-maintenance directory (where the setup.py file is located) 
+To install the package on your computer, run this in the `learn-maintenance` directory (where the `setup.py` file is located) 
 ```
 pip install .
 ```
