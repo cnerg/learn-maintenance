@@ -17,6 +17,7 @@ jobs:
       - run: pip install numpy
       - run: pip install -U pytest coverage coveralls PyYAML
       - run: coverage run -m --source=. pytest
+      - run: coveralls
       - name: Coveralls GitHub Action
         uses: coverallsapp/github-action@1.1.3
         with:
