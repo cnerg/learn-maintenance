@@ -17,9 +17,9 @@ jobs:
       - run: pip install numpy
       - run: pip install -U pytest coverage coveralls PyYAML
       - run: coverage run -m --source=. pytest
+      - run: coveralls --service=github
       - name: Coveralls GitHub Action
         uses: coverallsapp/github-action@master
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          path-to-lcov: coverage.xml
       - run: coverage report
