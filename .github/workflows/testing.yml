@@ -18,6 +18,8 @@ jobs:
       - run: pip install -U pytest coverage coveralls PyYAML
       - run: coverage run -m --source=. pytest
       - run: coveralls --service=github
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Coveralls GitHub Action
         uses: coverallsapp/github-action@master
         with:
