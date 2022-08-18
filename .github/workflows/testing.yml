@@ -21,5 +21,6 @@ jobs:
       - name: Coveralls GitHub Action
         uses: coverallsapp/github-action@master
         with:
+          path-to-lcov: ./coverage.lcov
           github-token: ${{ secrets.GITHUB_TOKEN }}
       - run: coverage report
