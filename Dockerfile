@@ -5,7 +5,7 @@ WORKDIR /app
 COPY requirements.txt requirements.txt
 RUN pip install -r requirements.txt
 RUN pip install numpy
-RUN pip install -U pytest coverage coveralls PyYAML
+RUN pip install -U pytest coverage
 COPY . .
 
 # comment to make build-docker-image workflow run
