@@ -4,6 +4,7 @@ on:
   push:
     paths:
       - 'Dockerfile'
+      - '.github/workflows/buildImage.yml'
 
 env: 
   REGISTRY: ghcr.io
