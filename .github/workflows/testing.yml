@@ -1,19 +1,10 @@
 # automatically runs pytest to test the length conversion program whenever code is pushed to github
 
 name: test-conversion-program
-on: 
-  push:
-  pull_request:
-    branches:
-      - main
+on: push
 jobs:
   run-test-code:
     runs-on: ubuntu-latest
-    container:
-      image: ghcr.io/bquan0/learn-maintenance-image:latest${{ matrix.python-version }}
-      credentials:
-        username: ${{ github.actor }}
-        password: ${{ secrets.GITHUB_TOKEN }}
     strategy:
       matrix:
         python-version: ["3.7", "3.8", "3.9", "3.10"]
@@ -23,6 +14,8 @@ jobs:
         uses: actions/setup-python@v4
         with:
           python-version: ${{ matrix.python-version }}
+      - run: pip install numpy
+      - run: pip install -U pytest coverage
       - run: coverage run -m --source=. pytest
       - run: coverage lcov
       - name: Coveralls GitHub Action
