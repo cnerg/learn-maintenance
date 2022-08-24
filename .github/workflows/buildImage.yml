@@ -39,6 +39,6 @@ jobs:
         with:
           context: .
           push: true
-          tags: ${{ steps.meta.outputs.labels }}
+          tags: ghcr.io/GITHUB_ACTOR/project-name:latest
           labels: ${{ steps.meta.outputs.labels }} 
     

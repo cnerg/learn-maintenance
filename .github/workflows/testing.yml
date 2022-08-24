@@ -1,12 +1,16 @@
 # automatically runs pytest to test the length conversion program whenever code is pushed to github
 
 name: test-conversion-program
-on: push
+on: 
+  push:
+  pull_request:
+    branches:
+      - main
 jobs:
   run-test-code:
     runs-on: ubuntu-latest
     container:
-      image: ghcr.io/bquan0/project-name:latest
+      image: ghcr.io/cnerg/project-name:latest
       credentials:
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}
