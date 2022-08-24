@@ -10,7 +10,7 @@ jobs:
   run-test-code:
     runs-on: ubuntu-latest
     container:
-      image: ghcr.io/cnerg/learn-maintenance-image:latest
+      image: ghcr.io/cnerg/learn-maintenance-image:latest/${{ matrix.python-version }}
       credentials:
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}
