@@ -10,7 +10,7 @@ jobs:
   run-test-code:
     runs-on: ubuntu-latest
     container:
-      image: ghcr.io/cnerg/project-name:latest
+      image: ghcr.io/cnerg/learn-maintenance-image:latest
       credentials:
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}
