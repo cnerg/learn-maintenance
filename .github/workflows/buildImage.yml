@@ -5,6 +5,7 @@ on:
     paths:
       - 'Dockerfile'
       - '.github/workflows/buildImage.yml'
+  pull-request:
 
 env: 
   REGISTRY: ghcr.io
@@ -46,6 +47,6 @@ jobs:
         with:
           context: .
           push: true
-          tags: ghcr.io/${{ github.repository_owner }}/learn-maintenance-image:latest${{ matrix.python-version }}
+          tags: ghcr.io/${{ github.repository_owner }}/tmp-learn-maintenance-image:latest${{ matrix.python-version }}
           labels: ${{ steps.meta.outputs.labels }} 
     
