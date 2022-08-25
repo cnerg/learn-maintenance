@@ -25,6 +25,10 @@ jobs:
         uses: ASzc/change-string-case-action@v2
         with:
           string: ${{ github.repository_owner }}
+          
+      - id: check_lowercase
+        run: echo ${{ steps.repo_lowercase.outputs.lowercase }}
+        
       - name: Checkout repository
         uses: actions/checkout@v3
 
@@ -51,6 +55,6 @@ jobs:
         with:
           context: .
           push: true
-          tags: ghcr.io/${{ steps.repo_lowercase.output.lowercase }}/tmp-learn-maintenance-image:latest${{ matrix.python-version }}
+          tags: ghcr.io/${{ steps.repo_lowercase.outputs.lowercase }}/tmp-learn-maintenance-image:latest${{ matrix.python-version }}
           labels: ${{ steps.meta.outputs.labels }} 
     
