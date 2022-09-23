@@ -16,7 +16,7 @@ jobs:
   run-test-code:
     runs-on: ubuntu-latest
     container:
-      image: ghcr.io/${{ github.repository }}/learn-maintenance-image:latest${{ matrix.python-version }}
+      image: ${{ REGISTRY }}/${{ github.repository }}/learn-maintenance-image:latest${{ matrix.python-version }}
       credentials:
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}
