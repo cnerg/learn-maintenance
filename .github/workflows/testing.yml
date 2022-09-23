@@ -6,11 +6,14 @@ on:
   pull_request:
     branches:
       - main
+env: 
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
 jobs:
   run-test-code:
     runs-on: ubuntu-latest
     container:
-      image: ghcr.io/cnerg/learn-maintenance-image:latest${{ matrix.python-version }}
+      image: ${{ env.REGISTRY }}/${{ github.repository }}/learn-maintenance-image:latest${{ matrix.python-version }}
       credentials:
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}

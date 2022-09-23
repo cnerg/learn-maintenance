@@ -46,6 +46,6 @@ jobs:
         with:
           context: .
           push: true
-          tags: ghcr.io/${{ github.actor }}/learn-maintenance-image:latest${{ matrix.python-version }}
+          tags: ${{ env.REGISTRY }}/${{ github.repository }}/learn-maintenance-image:latest${{ matrix.python-version }}
           labels: ${{ steps.meta.outputs.labels }} 
     
