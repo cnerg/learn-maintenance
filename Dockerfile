@@ -1,11 +1,11 @@
 # syntax=docker/dockerfile:1
 
-FROM python:3.8-slim-buster
+FROM scratch
+ADD ubuntu-focal-oci-amd64-root.tar.gz /
+CMD ["bash"]
 WORKDIR /app
 COPY requirements.txt requirements.txt
 RUN pip install -r requirements.txt
 RUN pip install numpy
 RUN pip install -U pytest coverage
 COPY . .
-
-# comment to make build-docker-image workflow run
