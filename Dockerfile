@@ -7,3 +7,4 @@ RUN pip install -r requirements.txt
 RUN pip install numpy
 RUN pip install -U pytest coverage
 COPY . .
+# comment to make buildImage.yml workflow run
