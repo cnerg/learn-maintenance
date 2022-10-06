@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1
-
-FROM ubuntu:18.04
+ARG PY_VERSION = 3.8
+FROM python:$PY_VERSION
 WORKDIR /app
 COPY requirements.txt requirements.txt
 RUN pip install -r requirements.txt

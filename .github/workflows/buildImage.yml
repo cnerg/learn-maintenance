@@ -34,10 +34,13 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Build and push Docker image
-        uses: docker/build-push-action@v2
-        with:
-          context: .
-          push: true
-          tags: ${{ env.REGISTRY }}/${{ github.repository }}/learn-maintenance-image:latest${{ matrix.python-version }}
+      - run: docker build -t learn-maintenance-image:latest${{ matrix.python-version }} --build-arg PY_VERSION=${{ matrix.python-version }}
+      - run: docker push ${{ env.REGISTRY }}/${{ github.repository }}/learn-maintenance-image:latest${{ matrix.python-version }}
+
+      # - name: Build and push Docker image
+      #   uses: docker/build-push-action@v2
+      #   with:
+      #     context: .
+      #     push: true
+      #     tags: ${{ env.REGISTRY }}/${{ github.repository }}/learn-maintenance-image:latest${{ matrix.python-version }}
     
