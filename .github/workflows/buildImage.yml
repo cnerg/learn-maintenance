@@ -41,5 +41,5 @@ jobs:
           build-args: |
             PY_VERSION=${{ matrix.python-version }}
           push: true
-          tags: ${{ env.REGISTRY }}/${{ github.repository }}/learn-maintenance-image:latest${{ matrix.python-version }}
+          tags: ${{ env.REGISTRY }}/${{ github.repository }}/learn-maintenance-image-${{ matrix.python-version }}:latest
     
