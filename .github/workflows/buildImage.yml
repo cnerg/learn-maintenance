@@ -51,10 +51,12 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           context: .
+          build-args: |
+            PY_VERSION=${{ matrix.python-version }}
           # set desired build target
           target: deploy
-          push: false
-          tags: ${{ env.REGISTRY }}/${{ github.repository }}/learn-maintenance-image:latest${{ matrix.python-version }}
+          push: false # used to be true
+          tags: ${{ env.REGISTRY }}/${{ github.repository }}/learn-maintenance-image-${{ matrix.python-version }}:latest
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,mode=max,dest=/tmp/.buildx-cache-new
 
@@ -63,3 +65,4 @@ jobs:
         run: |
           rm -rf /tmp/.buildx-cache
           mv /tmp/.buildx-cache-new /tmp/.buildx-cache
+          
