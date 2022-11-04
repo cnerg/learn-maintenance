@@ -12,3 +12,5 @@ RUN pip install numpy
 FROM stage2 AS stage3
 RUN pip install -U pytest coverage
 COPY . .
+
+# make a change in stage3, see if all images are rebuilt
