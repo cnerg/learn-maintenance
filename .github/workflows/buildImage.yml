@@ -3,6 +3,7 @@ name: build-docker-image
 on: 
   push:
     paths:
+      - 'Dockerfile'
       - 'Dockerfile.*'
       - '.github/workflows/buildImage.yml'
 
@@ -22,27 +23,17 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Paths Changes Filters (marketplace action)
-        uses: dorny/paths-filter@v2
-        id: changes
-        with:
-          filters: |
-            stage1:
-              - 'Dockerfile.stage1'
-            stage2:
-              - 'Dockerfile.stage2'
-            stage3:
-              - 'Dockerfile.stage3'
-            readme:
-              - 'README.md'
-
-      - name: printout whether the dockerfiles have changed
-        if: steps.changes.outputs.readme == 'true'
-        run: echo readme is edited
-
-      # # import the multi-stage docker build action
-      # - name: Multi-stage Docker Build
-      #   uses: Firehed/multistage-docker-build-action@v1.5.1
+      # - name: Paths Changes Filters (marketplace action)
+      #   uses: dorny/paths-filter@v2
+      #   id: changes
+      #   with:
+      #     filters: |
+      #       stage1:
+      #         - 'Dockerfile.stage1'
+      #       stage2:
+      #         - 'Dockerfile.stage2'
+      #       stage3:
+      #         - 'Dockerfile.stage3'
       
       # import buildx
       # - name: Docker Setup Buildx
@@ -69,55 +60,55 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Build and push Docker image (stage1)
-        if: steps.changes.outputs.stage1 == 'true'
-        uses: docker/build-push-action@v2
-        with:
-          context: .
-          file: Dockerfile.stage1
-          build-args: |
-            PY_VERSION=${{ matrix.python-version }}
-          push: true 
-          tags: ${{ env.REGISTRY }}/${{ github.repository }}/learn-maintenance-image-stage1-${{ matrix.python-version }}:latest
-      
-      - name: Build and push Docker image (stage2)
-        if: steps.changes.outputs.stage2 == 'true' || steps.changes.outputs.stage1 == 'true'
-        uses: docker/build-push-action@v2
-        with:
-          context: .
-          file: Dockerfile.stage2
-          build-args: |
-            PY_VERSION=${{ matrix.python-version }}
-            STAGE1_IMAGE=${{ env.REGISTRY }}/${{ github.repository }}/learn-maintenance-image-stage1-${{ matrix.python-version }}:latest
-          push: true 
-          tags: ${{ env.REGISTRY }}/${{ github.repository }}/learn-maintenance-image-stage2-${{ matrix.python-version }}:latest
-
-      - name: Build and push Docker image (stage3)
-        if: steps.changes.outputs.stage3 == 'true' || steps.changes.outputs.stage2 == 'true' || steps.changes.outputs.stage1 == 'true'
-        uses: docker/build-push-action@v2
-        with:
-          context: .
-          file: Dockerfile.stage3
-          build-args: |
-            PY_VERSION=${{ matrix.python-version }}
-            STAGE1_IMAGE=${{ env.REGISTRY }}/${{ github.repository }}/learn-maintenance-image-stage2-${{ matrix.python-version }}:latest
-          push: true 
-          tags: ${{ env.REGISTRY }}/${{ github.repository }}/learn-maintenance-image-stage3-${{ matrix.python-version }}:latest
-
-      
-
-      # # use the multistage docker build action instead of docker's action
-      # - uses: firehed/multistage-docker-build-action@v1
-      #   id: build
+      # - name: Build and push Docker image (stage1)
+      #   if: steps.changes.outputs.stage1 == 'true'
+      #   uses: docker/build-push-action@v2
       #   with:
       #     context: .
-      #     repository: ${{ env.REGISTRY }}/${{ github.repository }}/learn-maintenance-image-${{ matrix.python-version }}
-      #     tag-latest-on-default: true
-      #     stages: stage1, stage2, stage3
-      #     testenv-stage: testenv
-      #     server-stage: server
+      #     file: Dockerfile.stage1
       #     build-args: |
       #       PY_VERSION=${{ matrix.python-version }}
+      #     push: true 
+      #     tags: ${{ env.REGISTRY }}/${{ github.repository }}/learn-maintenance-image-stage1-${{ matrix.python-version }}:latest
+      
+      # - name: Build and push Docker image (stage2)
+      #   if: steps.changes.outputs.stage2 == 'true' || steps.changes.outputs.stage1 == 'true'
+      #   uses: docker/build-push-action@v2
+      #   with:
+      #     context: .
+      #     file: Dockerfile.stage2
+      #     build-args: |
+      #       PY_VERSION=${{ matrix.python-version }}
+      #       STAGE1_IMAGE=${{ env.REGISTRY }}/${{ github.repository }}/learn-maintenance-image-stage1-${{ matrix.python-version }}:latest
+      #     push: true 
+      #     tags: ${{ env.REGISTRY }}/${{ github.repository }}/learn-maintenance-image-stage2-${{ matrix.python-version }}:latest
+
+      # - name: Build and push Docker image (stage3)
+      #   if: steps.changes.outputs.stage3 == 'true' || steps.changes.outputs.stage2 == 'true' || steps.changes.outputs.stage1 == 'true'
+      #   uses: docker/build-push-action@v2
+      #   with:
+      #     context: .
+      #     file: Dockerfile.stage3
+      #     build-args: |
+      #       PY_VERSION=${{ matrix.python-version }}
+      #       STAGE1_IMAGE=${{ env.REGISTRY }}/${{ github.repository }}/learn-maintenance-image-stage2-${{ matrix.python-version }}:latest
+      #     push: true 
+      #     tags: ${{ env.REGISTRY }}/${{ github.repository }}/learn-maintenance-image-stage3-${{ matrix.python-version }}:latest
+
+      
+
+      # use the multistage docker build action instead of docker's action
+      - uses: firehed/multistage-docker-build-action@v1
+        id: build
+        with:
+          context: .
+          repository: ${{ env.REGISTRY }}/${{ github.repository }}/learn-maintenance-image-${{ matrix.python-version }}
+          tag-latest-on-default: true
+          stages: stage1, stage2, stage3
+          testenv-stage: testenv
+          server-stage: server
+          build-args: |
+            PY_VERSION=${{ matrix.python-version }}
 
       # buildx 
       # - name: Build and push Docker image
@@ -135,5 +126,3 @@ jobs:
       #   run: |
       #     rm -rf /tmp/.buildx-cache
       #     mv /tmp/.buildx-cache-new /tmp/.buildx-cache
-
-# comment to see if stage1, 2, 3 are built
