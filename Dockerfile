@@ -8,6 +8,7 @@ RUN pip install -r requirements.txt
 
 FROM stage1 AS stage2
 RUN pip install numpy
+RUN echo stage2
 
 FROM stage2 AS stage3
 RUN pip install -U pytest coverage
