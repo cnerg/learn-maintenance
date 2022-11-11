@@ -5,3 +5,5 @@ ARG STAGE2_IMAGE=python:$PY_VERSION
 FROM $STAGE2_IMAGE 
 RUN pip install -U pytest coverage
 COPY . .
+
+#comment to modify stage3
