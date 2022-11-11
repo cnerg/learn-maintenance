@@ -1,0 +1,6 @@
+ARG PY_VERSION=3.8
+ARG STAGE1_IMAGE=python:$PY_VERSION
+# syntax=docker/dockerfile:1
+
+FROM $STAGE1_IMAGE 
+RUN pip install numpy
