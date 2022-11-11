@@ -24,7 +24,7 @@ jobs:
 
       - name: Paths Changes Filters (marketplace action)
         uses: dorny/paths-filter@v2
-        id: filters
+        id: changes
         with:
           filters: |
             stage1:
@@ -33,10 +33,12 @@ jobs:
               - 'Dockerfile.stage2'
             stage3:
               - 'Dockerfile.stage3'
+            readme:
+              - 'README.md'
 
       - name: printout whether the dockerfiles have changed
-        if: steps.filters.outputs.stage1 == 'true'
-        run: echo stage1 is edited
+        if: steps.changes.outputs.readme == 'true'
+        run: echo readme is edited
 
       # # import the multi-stage docker build action
       # - name: Multi-stage Docker Build
@@ -68,7 +70,7 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build and push Docker image (stage1)
-        if: steps.filters.outputs.stage1 == 'true'
+        if: steps.changes.outputs.stage1 == 'true'
         uses: docker/build-push-action@v2
         with:
           context: .
@@ -79,7 +81,7 @@ jobs:
           tags: ${{ env.REGISTRY }}/${{ github.repository }}/learn-maintenance-image-stage1-${{ matrix.python-version }}:latest
       
       - name: Build and push Docker image (stage2)
-        if: steps.filters.outputs.stage2 == 'true' || steps.filters.outputs.stage1 == 'true'
+        if: steps.changes.outputs.stage2 == 'true' || steps.changes.outputs.stage1 == 'true'
         uses: docker/build-push-action@v2
         with:
           context: .
@@ -91,7 +93,7 @@ jobs:
           tags: ${{ env.REGISTRY }}/${{ github.repository }}/learn-maintenance-image-stage2-${{ matrix.python-version }}:latest
 
       - name: Build and push Docker image (stage3)
-        if: steps.filters.outputs.stage3 == 'true' || steps.filters.outputs.stage2 == 'true' || steps.filters.outputs.stage1 == 'true'
+        if: steps.changes.outputs.stage3 == 'true' || steps.changes.outputs.stage2 == 'true' || steps.changes.outputs.stage1 == 'true'
         uses: docker/build-push-action@v2
         with:
           context: .
