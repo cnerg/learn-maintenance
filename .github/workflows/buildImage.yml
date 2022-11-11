@@ -86,7 +86,7 @@ jobs:
           tags: ${{ env.REGISTRY }}/${{ github.repository }}/learn-maintenance-image-stage2-${{ matrix.python-version }}:latest
 
       - name: Build and push Docker image (stage3)
-        if: steps.filter.outputs.3 == 'true'
+        if: steps.filter.outputs.stage3 == 'true'
         uses: docker/build-push-action@v2
         with:
           context: .
