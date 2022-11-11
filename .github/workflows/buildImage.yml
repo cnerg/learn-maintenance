@@ -104,9 +104,8 @@ jobs:
           context: .
           repository: ${{ env.REGISTRY }}/${{ github.repository }}/learn-maintenance-image-${{ matrix.python-version }}
           tag-latest-on-default: true
-          stages: stage1, stage2, stage3
-          testenv-stage: testenv
-          server-stage: server
+          stages: stage1, stage2
+          server-stage: stage3
           build-args: |
             PY_VERSION=${{ matrix.python-version }}
 
