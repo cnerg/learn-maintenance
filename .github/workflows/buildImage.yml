@@ -63,7 +63,7 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build and push Docker image (stage1)
-        if: steps.filter.outputs.stage1 == 'true'
+        # if: steps.filter.outputs.stage1 == 'true'
         uses: docker/build-push-action@v2
         with:
           context: .
