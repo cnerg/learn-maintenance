@@ -35,10 +35,12 @@ jobs:
               - 'Dockerfile.stage3'
 
       - name: printout whether the dockerfiles have changed
-        run: |
-          echo steps.changes.outputs.stage1
-          echo steps.changes.outputs.stage2
-          echo steps.changes.outputs.stage3
+        if: steps.changes.outputs.stage1 == 'true'
+        run: echo stage1 is edited
+        if: steps.changes.outputs.stage2 == 'true'
+        run: echo stage2 is edited
+        if: steps.changes.outputs.stage3 == 'true'
+        run: echo stage3 is edited
       # # import the multi-stage docker build action
       # - name: Multi-stage Docker Build
       #   uses: Firehed/multistage-docker-build-action@v1.5.1
