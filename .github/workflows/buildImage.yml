@@ -23,31 +23,6 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      # - name: Paths Changes Filters (marketplace action)
-      #   uses: dorny/paths-filter@v2
-      #   id: changes
-      #   with:
-      #     filters: |
-      #       stage1:
-      #         - 'Dockerfile.stage1'
-      #       stage2:
-      #         - 'Dockerfile.stage2'
-      #       stage3:
-      #         - 'Dockerfile.stage3'
-      
-      # import buildx
-      # - name: Docker Setup Buildx
-      #   uses: docker/setup-buildx-action@v2.2.1
-
-      # buildx cache docker layers
-      # - name: Cache Docker layers
-      #   uses: actions/cache@v2
-      #   with:
-      #     path: /tmp/.buildx-cache
-      #     key: ${{ runner.os }}-single-buildx-${{ github.sha }}
-      #     restore-keys: |
-      #       ${{ runner.os }}-single-buildx
-
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v4
         with:
@@ -60,43 +35,6 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      # - name: Build and push Docker image (stage1)
-      #   if: steps.changes.outputs.stage1 == 'true'
-      #   uses: docker/build-push-action@v2
-      #   with:
-      #     context: .
-      #     file: Dockerfile.stage1
-      #     build-args: |
-      #       PY_VERSION=${{ matrix.python-version }}
-      #     push: true 
-      #     tags: ${{ env.REGISTRY }}/${{ github.repository }}/learn-maintenance-image-stage1-${{ matrix.python-version }}:latest
-      
-      # - name: Build and push Docker image (stage2)
-      #   if: steps.changes.outputs.stage2 == 'true' || steps.changes.outputs.stage1 == 'true'
-      #   uses: docker/build-push-action@v2
-      #   with:
-      #     context: .
-      #     file: Dockerfile.stage2
-      #     build-args: |
-      #       PY_VERSION=${{ matrix.python-version }}
-      #       STAGE1_IMAGE=${{ env.REGISTRY }}/${{ github.repository }}/learn-maintenance-image-stage1-${{ matrix.python-version }}:latest
-      #     push: true 
-      #     tags: ${{ env.REGISTRY }}/${{ github.repository }}/learn-maintenance-image-stage2-${{ matrix.python-version }}:latest
-
-      # - name: Build and push Docker image (stage3)
-      #   if: steps.changes.outputs.stage3 == 'true' || steps.changes.outputs.stage2 == 'true' || steps.changes.outputs.stage1 == 'true'
-      #   uses: docker/build-push-action@v2
-      #   with:
-      #     context: .
-      #     file: Dockerfile.stage3
-      #     build-args: |
-      #       PY_VERSION=${{ matrix.python-version }}
-      #       STAGE1_IMAGE=${{ env.REGISTRY }}/${{ github.repository }}/learn-maintenance-image-stage2-${{ matrix.python-version }}:latest
-      #     push: true 
-      #     tags: ${{ env.REGISTRY }}/${{ github.repository }}/learn-maintenance-image-stage3-${{ matrix.python-version }}:latest
-
-      
-
       # use the multistage docker build action instead of docker's action
       - uses: firehed/multistage-docker-build-action@v1
         id: build
@@ -108,22 +46,3 @@ jobs:
           server-stage: stage3
           build-args: |
             PY_VERSION=${{ matrix.python-version }}
-
-      # buildx 
-      # - name: Build and push Docker image
-      #   uses: docker/build-push-action@v2
-      #   with:
-      #     context: .
-      #     build-args: |
-      #       PY_VERSION=${{ matrix.python-version }}
-      #     push: true 
-      #     tags: ${{ env.REGISTRY }}/${{ github.repository }}/learn-maintenance-image-${{ matrix.python-version }}:latest
-      #     cache-from: type=local,src=/tmp/.buildx-cache
-      #     cache-to: type=local,dest=/tmp/.buildx-cache-new
-
-      # - name: Move cache
-      #   run: |
-      #     rm -rf /tmp/.buildx-cache
-      #     mv /tmp/.buildx-cache-new /tmp/.buildx-cache
-
-      #comment to edit buildImage.yml and not Dockerfile
