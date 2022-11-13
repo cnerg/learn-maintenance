@@ -1,9 +1,0 @@
-ARG PY_VERSION=3.8
-ARG STAGE2_IMAGE=python:$PY_VERSION
-# syntax=docker/dockerfile:1
-
-FROM $STAGE2_IMAGE 
-RUN pip install -U pytest coverage
-COPY . .
-
-#comment to modify stage3
