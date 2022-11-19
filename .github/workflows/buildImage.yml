@@ -34,12 +34,14 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Build and push Docker image
-        uses: docker/build-push-action@v2
+      # use the multistage docker build action instead of docker's action
+      - uses: firehed/multistage-docker-build-action@v1
+        id: build
         with:
           context: .
+          repository: ${{ env.REGISTRY }}/${{ github.repository }}/learn-maintenance-image-${{ matrix.python-version }}
+          tag-latest-on-default: true
+          stages: stage1, stage2
+          server-stage: stage3
           build-args: |
             PY_VERSION=${{ matrix.python-version }}
-          push: true
-          tags: ${{ env.REGISTRY }}/${{ github.repository }}/learn-maintenance-image-${{ matrix.python-version }}:latest
-    
