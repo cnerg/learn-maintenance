@@ -14,3 +14,4 @@ RUN echo stage2
 FROM stage2 AS stage3
 RUN pip install -U pytest coverage
 COPY . .
+RUN echo stage3
