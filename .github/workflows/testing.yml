@@ -2,7 +2,8 @@
 
 name: test-conversion-program
 
-on: 
+on:
+  workflow_dispatch:
   push:
   pull_request:
     branches:
