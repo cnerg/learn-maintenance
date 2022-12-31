@@ -22,6 +22,7 @@ jobs:
     steps: 
       - uses: actions/checkout@v3
       
+      - run: python --version
       - run: coverage run -m --source=. pytest
       - run: coverage lcov
       - name: Coveralls GitHub Action
