@@ -27,8 +27,9 @@ jobs:
       - if: ${{ matrix.python-version }} != "3.7"
         run: pytest
       - if: ${{ matrix.python-version }} == "3.7"
-        run: coverage run -m --source=. pytest
-        run: coverage lcov
+        run: |
+          coverage run -m --source=. pytest
+          coverage lcov
         name: Coveralls GitHub Action
         uses: coverallsapp/github-action@master
         with:
