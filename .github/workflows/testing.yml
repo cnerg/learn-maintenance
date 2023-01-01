@@ -2,7 +2,8 @@
 
 name: test-conversion-program
 
-on: 
+on:
+  workflow_dispatch:
   push:
   pull_request:
     branches:
@@ -21,10 +22,8 @@ jobs:
         password: ${{ secrets.GITHUB_TOKEN }}
     steps: 
       - uses: actions/checkout@v3
-      - name: Set up Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v4
-        with:
-          python-version: ${{ matrix.python-version }}
+      
+      - run: python --version
       - run: coverage run -m --source=. pytest
       - run: coverage lcov
       - name: Coveralls GitHub Action
