@@ -3,7 +3,7 @@
 name: test-conversion-program
 
 env: 
-  python-version-for-coveralls: "3.7"
+  python-version-for-coveralls: ${{ "3.7" }}
 
 on:
   workflow_dispatch:
