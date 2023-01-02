@@ -2,6 +2,9 @@
 
 name: test-conversion-program
 
+env: 
+  python-version-for-coveralls: "3.7"
+
 on:
   workflow_dispatch:
   push:
@@ -28,17 +31,17 @@ jobs:
         run: echo "false"
       - if: true
         run: echo "true"
-      - if: ${{ matrix.python-version }} != ${{ "3.7" }}
+      - if: ${{ matrix.python-version }} != ${{ env.python-version-for-coveralls }}
         run: pytest
-      - if: ${{ matrix.python-version }} == ${{ "3.7" }}
+      - if: ${{ matrix.python-version }} == ${{ env.python-version-for-coveralls }}
         run: |
           coverage run -m --source=. pytest
           coverage lcov
-      - if: ${{ matrix.python-version }} == ${{ "3.7" }}
+      - if: ${{ matrix.python-version }} == ${{ env.python-version-for-coveralls }}
         name: Coveralls GitHub Action
         uses: coverallsapp/github-action@master
         with:
           path-to-lcov: ./coverage.lcov
           github-token: ${{ secrets.GITHUB_TOKEN }}
-      - if: ${{ matrix.python-version }} == ${{ "3.7" }}
+      - if: ${{ matrix.python-version }} == ${{ env.python-version-for-coveralls }}
         run: coverage report
