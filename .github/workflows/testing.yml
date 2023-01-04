@@ -36,17 +36,17 @@ jobs:
             echo 'run-coverage=false' >> $GITHUB_ENV
           fi
       - run: echo ${{ env.run-coverage }}
-      - if: '!env.run-coveralls'
+      - if: env.run-coveralls == false
         run: pytest
       - if: env.run-coveralls == true
         run: |
           coverage run -m --source=. pytest
           coverage lcov
-      - if: env.run-coveralls
+      - if: env.run-coveralls == true
         name: Coveralls GitHub Action
         uses: coverallsapp/github-action@master
         with:
           path-to-lcov: ./coverage.lcov
           github-token: ${{ secrets.GITHUB_TOKEN }}
-      - if: env.run-coveralls
+      - if: env.run-coveralls == true
         run: coverage report
