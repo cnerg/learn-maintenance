@@ -27,21 +27,18 @@ jobs:
       - uses: actions/checkout@v3
       
       - run: python --version
-      - run: echo ${{ matrix.python-version }}
-      - run: echo ${{ env.python-version-for-coveralls }}
-      - run: echo ${{ matrix.python-version }} != ${{ env.python-version-for-coveralls }}
-      - run: echo ${{ matrix.python-version }} == ${{ env.python-version-for-coveralls }}
-      - if: ${{ matrix.python-version }} != ${{ env.python-version-for-coveralls }}
+      - run: echo ${{ matrix.python-version }} = ${{ env.python-version-for-coveralls }} ${{ run-coveralls }}
+      - if: !${{ run-coveralls }}
         run: pytest
-      - if: ${{ matrix.python-version }} == ${{ env.python-version-for-coveralls }}
+      - if: ${{ run-coveralls }}
         run: |
           coverage run -m --source=. pytest
           coverage lcov
-      - if: ${{ matrix.python-version }} == ${{ env.python-version-for-coveralls }}
+      - if: ${{ run-coveralls }}
         name: Coveralls GitHub Action
         uses: coverallsapp/github-action@master
         with:
           path-to-lcov: ./coverage.lcov
           github-token: ${{ secrets.GITHUB_TOKEN }}
-      - if: ${{ matrix.python-version }} == ${{ env.python-version-for-coveralls }}
+      - if: ${{ run-coveralls }}
         run: coverage report
