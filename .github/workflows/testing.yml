@@ -32,6 +32,7 @@ jobs:
           if [[ "${{ matrix.python-version }}" == "3.7" ]]; then
             echo 'run-coverage=true' >> $GITHUB_ENV
           fi
+      - run: echo ${{ env.run-coverage }}
       - if: "!${{ env.run-coveralls }}"
         run: pytest
       - if: ${{ env.run-coveralls }}
