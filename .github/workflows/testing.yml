@@ -28,12 +28,12 @@ jobs:
       
       - run: python --version
       - run: |
-          if [[ "${{ matrix.python-version }}" == "3.7" ]]; then
+          if [ "${{ matrix.python-version }}" == "3.7" ]; then
             echo 'run-coverage=true' >> $GITHUB_ENV
           fi
       - if: "!${{ env.run-coveralls }}"
         run: pytest
-      - if: ${{ env.run-coveralls }}
+      - if: false
         run: |
           coverage run -m --source=. pytest
           coverage lcov
