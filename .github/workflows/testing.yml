@@ -28,7 +28,7 @@ jobs:
       
       - run: python --version
       - run: echo ${{ matrix.python-version }} = ${{ env.python-version-for-coveralls }} ${{ run-coveralls }}
-      - if: !${{ run-coveralls }}
+      - if: ! ${{ run-coveralls }}
         run: pytest
       - if: ${{ run-coveralls }}
         run: |
