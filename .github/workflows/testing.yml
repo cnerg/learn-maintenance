@@ -28,7 +28,7 @@ jobs:
       
       - run: python --version
       - run: echo ${{ matrix.python-version }} = "3.7" >> ${{ env.run-coveralls }}
-      - if: !(${{ env.run-coveralls }})
+      - if: "!${{ env.run-coveralls }}"
         run: pytest
       - if: ${{ env.run-coveralls }}
         run: |
