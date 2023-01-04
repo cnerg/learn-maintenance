@@ -32,19 +32,21 @@ jobs:
         run: |
           if [[ "${{ matrix.python-version }}" == "3.7" ]]; then
             echo 'run-coverage=true' >> $GITHUB_ENV
+          else
+            echo 'run-coverage=false' >> $GITHUB_ENV
           fi
       - run: echo ${{ env.run-coverage }}
-      - if: "!${{ env.run-coveralls }}"
+      - if: !env.run-coveralls
         run: pytest
-      - if: ${{ env.run-coveralls }}
+      - if: env.run-coveralls
         run: |
           coverage run -m --source=. pytest
           coverage lcov
-      - if: ${{ env.run-coveralls }}
+      - if: env.run-coveralls
         name: Coveralls GitHub Action
         uses: coverallsapp/github-action@master
         with:
           path-to-lcov: ./coverage.lcov
           github-token: ${{ secrets.GITHUB_TOKEN }}
-      - if: ${{ env.run-coveralls }}
+      - if: env.run-coveralls
         run: coverage report
