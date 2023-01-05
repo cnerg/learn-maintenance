@@ -25,7 +25,7 @@ jobs:
       - run: python --version
       - run: pytest
 
-  run-coveralls-with-3.7:
+  run-coveralls:
     runs-on: ubuntu-latest
     container:
       image: ghcr.io/${{ github.repository }}/learn-maintenance-image-3.7:latest
