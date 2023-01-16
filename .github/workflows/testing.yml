@@ -10,25 +10,36 @@ on:
       - main
 
 jobs:
-  run-test-code:
+  run-pytest-only:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: ["3.7", "3.8", "3.9", "3.10"]
+        python-version: ["3.8", "3.9", "3.10"]
     container:
       image: ghcr.io/${{ github.repository }}/learn-maintenance-image-${{ matrix.python-version }}:latest
       credentials:
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}
     steps: 
-      - uses: actions/checkout@v3
-      
+      - uses: actions/checkout@v3     
       - run: python --version
-      - run: coverage run -m --source=. pytest
-      - run: coverage lcov
-      - name: Coveralls GitHub Action
-        uses: coverallsapp/github-action@master
-        with:
-          path-to-lcov: ./coverage.lcov
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-      - run: coverage report
+      - run: pytest
+
+  run-coveralls:
+    runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/${{ github.repository }}/learn-maintenance-image-3.7:latest
+      credentials:
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+    steps: 
+    - uses: actions/checkout@v3   
+    - run: python --version
+    - run: coverage run -m --source=. pytest
+    - run: coverage lcov
+    - name: Coveralls GitHub Action
+      uses: coverallsapp/github-action@master
+      with:
+        path-to-lcov: ./coverage.lcov
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+    - run: coverage report
