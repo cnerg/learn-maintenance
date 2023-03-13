@@ -32,7 +32,7 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
       # use the multistage docker build action instead of docker's action
-      - uses: firehed/multistage-docker-build-action@bc95fc29c4849d83e8473c7644900f559391d39c
+      - uses: firehed/multistage-docker-build-action@ bc95fc29c4849d83e8473c7644900f559391d39c
         id: build
         with:
           context: .
