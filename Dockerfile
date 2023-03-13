@@ -8,17 +8,17 @@ COPY requirements.txt requirements.txt
 RUN pip install -r requirements.txt
 RUN echo stage1 MESSAGE = ${MESSAGE}
 
-FROM stage1 AS stage2A
-RUN echo stage2A MESSAGE = ${MESSAGE}
+FROM stage1 AS stage2a
+RUN echo stage2a MESSAGE = ${MESSAGE}
 
-FROM stage2A AS stage2B
-RUN echo stage2B MESSAGE = ${MESSAGE}
+FROM stage2a AS stage2b
+RUN echo stage2b MESSAGE = ${MESSAGE}
 
-FROM stage1 AS stage3A
+FROM stage1 AS stage3a
 RUN pip install numpy
-RUN echo stage3A MESSAGE = ${MESSAGE}
+RUN echo stage3a MESSAGE = ${MESSAGE}
 
-FROM stage3A AS stage3B
+FROM stage3a AS stage3b
 RUN pip install -U pytest coverage
 COPY . .
-RUN echo stage3B MESSAGE = ${MESSAGE}
+RUN echo stage3b MESSAGE = ${MESSAGE}
