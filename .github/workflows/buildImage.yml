@@ -9,6 +9,7 @@ on:
 
 env: 
   REGISTRY: ghcr.io
+  DOCKER_BUILDKIT: "1"
 
 jobs:
   build-image:
@@ -31,13 +32,15 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
       # use the multistage docker build action instead of docker's action
-      - uses: firehed/multistage-docker-build-action@v1
+      - uses: firehed/multistage-docker-build-action@bc95fc29c4849d83e8473c7644900f559391d39c
         id: build
         with:
           context: .
+          quiet: uses
           repository: ${{ env.REGISTRY }}/${{ github.repository }}/learn-maintenance-image-${{ matrix.python-version }}
           tag-latest-on-default: true
-          stages: stage1, stage2
-          server-stage: stage3
+          stages: stage1, stage3A
+          server-stage: stage3B
           build-args: |
             PY_VERSION=${{ matrix.python-version }}
+            MESSAGE="workflow"
