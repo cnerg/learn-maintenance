@@ -19,7 +19,6 @@ RUN pip install numpy
 RUN echo stage3a MESSAGE = ${MESSAGE}
 
 FROM stage3a AS stage3b
-ARG MESSAGE
 RUN pip install -U pytest coverage
 COPY . .
 RUN echo stage3b MESSAGE = ${MESSAGE}
