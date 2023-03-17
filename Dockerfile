@@ -3,6 +3,7 @@ ARG MESSAGE="default messsage"
 # syntax=docker/dockerfile:1
 
 FROM python:$PY_VERSION AS stage1
+ARG MESSAGE
 WORKDIR /app
 COPY requirements.txt requirements.txt
 RUN pip install -r requirements.txt
@@ -22,3 +23,4 @@ FROM stage3a AS stage3b
 RUN pip install -U pytest coverage
 COPY . .
 RUN echo stage3b MESSAGE = ${MESSAGE}
+RUN echo something
