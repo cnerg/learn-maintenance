@@ -41,6 +41,4 @@ jobs:
           tag-latest-on-default: true
           stages: stage1, stage3a
           server-stage: stage3b
-          build-args: |
-            PY_VERSION=${{ matrix.python-version }}
-            MESSAGE="workflow"
+          build-args: PY_VERSION=${{ matrix.python-version }}, MESSAGE="workflow"
