@@ -18,10 +18,11 @@ jobs:
         run: |
           echo ${{ env.DOCKER_IMAGE_TAG }}
           echo ${{ github.event_name }}
+          echo ${{ github.HEAD_REF }}
       
       - name: Check for DOCKER_IMAGE_TAG change
         if: github.event_name == 'pull_request'
-        run: echo ":refs_heads_${GITHUB_HEAD_REF}-bk0" >> $env.DOCKER_IMAGE_TAG
+        run: $env.DOCKER_IMAGE_TAG = ":refs_heads_${GITHUB_HEAD_REF}-bk0" >> 
 
       - name: Echo DOCKER_IMAGE_TAG again
         run: echo ${{ env.DOCKER_IMAGE_TAG }}
