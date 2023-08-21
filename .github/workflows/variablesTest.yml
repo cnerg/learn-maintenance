@@ -29,6 +29,7 @@ jobs:
         run: echo ${{ env.DOCKER_IMAGE_TAG }}
   
   check_permanence:
+    needs: [check_event]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
