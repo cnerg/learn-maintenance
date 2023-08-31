@@ -13,5 +13,5 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: See what github.ref is on release
-        run: echo ${{ github.ref }}
+      - name: See what github.ref_name is on release
+        run: echo ${{ github.ref_name }}
